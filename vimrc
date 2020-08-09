@@ -323,6 +323,8 @@ au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
 au BufNewFile,BufRead *.cpp setlocal expandtab ts=2 sw=2
 au BufNewFile,BufRead *.hpp setlocal expandtab ts=2 sw=2
 au BufNewFile,BufRead *.json setlocal expandtab ts=2 sw=2
+
+
 au BufNewFile,BufRead *.jade setlocal expandtab ts=2 sw=2
 
 augroup filetypedetect
@@ -468,6 +470,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " ==================== vim-json ====================
 
 let g:vim_json_syntax_conceal = 0
+let g:indentLine_fileTypeExclude = ['json']
+
+
 
 " ==================== Completion =========================
 
@@ -551,3 +556,14 @@ endfunction
 
 set rtp+=/usr/local/opt/fzf
 noremap <C-f> :Files<CR>
+
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+
+
+
+" =================== vim-slime  ========================
+
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+
