@@ -555,7 +555,7 @@ endfunction
 " =================== fzf.vim ========================
 
 set rtp+=/usr/local/opt/fzf
-noremap <C-f> :Files<CR>
+noremap <C-f> :GFiles<CR>
 
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
@@ -566,4 +566,7 @@ let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
 
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
+
+" =================== vim-yankstack  ========================
+call yankstack#setup()
 
