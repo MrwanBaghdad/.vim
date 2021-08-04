@@ -61,7 +61,7 @@ command! -nargs=* -complete=help Help vertical belowright help <args>
 autocmd FileType help wincmd L
 
 " Make Vim to handle long lines nicely.
-set wrap
+set wrap!
 set textwidth=80
 set formatoptions=qrn1
 
@@ -118,13 +118,17 @@ inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+  set mouse=n
 endif
 
 " If linux then set ttymouse
 let s:uname = system("echo -n \"$(uname)\"")
-if !v:shell_error && s:uname == "Linux" && !has('nvim')
+if !v:shell_error && s:uname == "Linux" || s:uname=="Darwin" && !has('nvim')
   set ttymouse=xterm
+endif
+
+if !v:shell_error && s:uname=="Darwin" && !has('nvim')
+  set ttymouse=xterm2
 endif
 
 " Convenient command to see the difference between the current buffer and the
@@ -271,7 +275,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 "nnoremap <leader>. :lcd %:p:h<CR>
-autocmd BufEnter * silent! lcd %:p:h
+" autocmd BufEnter * silent! lcd %:p:h
 
 " trim all whitespaces away
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -555,7 +559,8 @@ endfunction
 " =================== fzf.vim ========================
 
 set rtp+=/usr/local/opt/fzf
-noremap <C-f> :GFiles<CR>
+noremap <C-g> :GFiles<CR>
+noremap <C-f> :Files<CR>
 
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
@@ -566,7 +571,15 @@ let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
 
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
+
 
 " =================== vim-yankstack  ========================
 call yankstack#setup()
 
+" =================== coc ========================
+
+
+let g:coc_global_extensions = [
+     \'coc-eslint',
+     \'coc-tsserver']
